@@ -1,0 +1,60 @@
+﻿body {
+}
+
+.form-control {
+    width: 300px; /* Adjust the width as needed */
+}
+
+.custom-resize {
+    width: 600px;
+}
+
+.number-resize {
+    width: 200px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Adjust the value as needed */
+}
+.create-page {
+    margin: auto;
+    margin-left: 50px;
+}
+/* Custom Checkbox */
+.custom-checkbox {
+    position: relative;
+    padding-left: 25px; /* Reduced from 35px */
+    cursor: pointer;
+    font-size: 16px; /* Reduced from 22px */
+    user-select: none;
+}
+
+    .custom-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .custom-checkbox .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px; /* Reduced from 25px */
+        width: 18px; /* Reduced from 25px */
+        background-color: #ccc;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+/* CSS for grid with 2 to 3 columns */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-left: 0px; /* Center align */
+    width: fit-content; /* Adjust width to content */
+}

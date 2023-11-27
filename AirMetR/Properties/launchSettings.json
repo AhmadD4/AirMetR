@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:47251",
+      "applicationUrl": "http://localhost:5555",
       "sslPort": 0
     }
   },
@@ -11,7 +11,7 @@
     "AirMetR": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5223",
+      "applicationUrl": "http://localhost:47251",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
