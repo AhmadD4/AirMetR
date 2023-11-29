@@ -2,9 +2,12 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useParams
 import Swal from 'sweetalert2';
+import { getReservationDetails, getUnavailableDates, putInReservation } from '../../API/ReservationApi';
+import { getPropertyDetails } from '../../API/Services';
 
 const UpdateReservation = () => {
     let { id } = useParams(); // Extract the reservation ID from the URL
+
     let navigate = useNavigate();
     const [reservation, setReservation] = useState();
     const [startDate, setStartDate] = useState('');
@@ -14,14 +17,13 @@ const UpdateReservation = () => {
     const [totalDays, setTotalDays] = useState(0);
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const [unavailableDates, setUnavailableDates] = useState([]);
+    const [formError, setFormError] = useState(""); // State to store the error message
 
     // Function to fetch unavailable dates
     const fetchUnavailableDates = async () => {
         try {
-            const response = await axios.get(`http://localhost:47251/api/Reservation/GetUnavailableDates/${id}`);
-            setUnavailableDates(response.data.unavailableDates);
-            console.log("UnavailableDates: ", unavailableDates);
-            console.log("UnavailableDates: ", response.data);
+            const data = await getUnavailableDates(id);
+            setUnavailableDates(data.unavailableDates);
         } catch (error) {
             console.error('Error fetching unavailable dates:', error);
         }
@@ -29,21 +31,28 @@ const UpdateReservation = () => {
 
     // Fetch the existing reservation details
     useEffect(() => {
-        axios.get(`http://localhost:47251/api/Reservation/Details/${id}`)
-            .then(response => {
-                setReservation(response.data.reservation);
-                console.log(response.data.reservation);
-                //setStartDate(reservation.startDate);
-                //setEndDate(reservation.endDate);
-                //setNumberOfGuests(reservation.numberOfGuests);
-                // Other details...
-            })
-            .catch(error => {
-                console.error('Error fetching reservation:', error);
-            });
+        const fetchData = async () => {
+            try {
+                const data = await getReservationDetails(id);
+                setReservation(data.reservation);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setFormError(error);
+            }
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
+        const fetchPropertyData = async () => {
+            try {
+                const data = await getPropertyDetails(id);
+                setPricePerNight(data.property.price);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchPropertyData();
         // Calculate total price when dates change
         const start = new Date(startDate);
         const end = new Date(endDate);
@@ -75,11 +84,12 @@ const UpdateReservation = () => {
         }
         return false;
     };
-
-    console.log(reservation);
-    const handleSubmit = (event) => {
+    console.log()
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        setFormError(""); // Reset any existing errors
         if (isDateRangeUnavailable(startDate, endDate)) {
+            setFormError("Unavailable dates. Please try again.");
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -96,25 +106,24 @@ const UpdateReservation = () => {
         formData.append('propertyId', reservation.propertyId);
         formData.append('totalPrice', totalPrice);
         formData.append('totalDays', totalDays);
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
 
-
-        axios.put(`http://localhost:47251/api/Reservation/UpdateReservation/${id}`, formData)
-            .then(response => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your reservation has been updated",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/reservations');
-            })
-            .catch(error => {
-                console.error('Error updating reservation:', error);
+        try {
+            await putInReservation(id, formData);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your reservation has been updated",
+                showConfirmButton: false,
+                timer: 1500
             });
+            navigate('/reservations');
+        } catch (error) {
+            console.error('Error updating reservation:', error);
+            if (error) {
+                setFormError(error.message || "An error occurred. Please try again.");
+            }
+        }
+        
     };
     const handleCancel = () => {
         navigate('/reservations'); // Redirect to reservations page
@@ -124,6 +133,7 @@ const UpdateReservation = () => {
         <div>
             <h2>Update</h2>
             <form onSubmit={handleSubmit}>
+                {formError && <div className="alert alert-danger" role="alert">{formError}</div>}
                 <div className="form-group">
                     <label htmlFor="startDate">Start Date:</label>
                     <input
@@ -159,6 +169,12 @@ const UpdateReservation = () => {
 
                 <button type="submit" className="btn btn-primary">Save Changes</button>
                 <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
+                {totalPrice > 0 && (
+                    <dl className="row mx-auto text-left" id="totalPrice">
+                        <dt className="col-sm-7 fw-lighter">{pricePerNight.toFixed(2)} NOK x {((new Date(endDate) - new Date(startDate)) / (1000 * 3600 * 24)).toFixed(0)} nights</dt>
+                        <dd className="col-sm-5 fw-bold">{totalPrice.toFixed(2)} NOK</dd>
+                    </dl>
+                )}
             </form>
         </div>
         

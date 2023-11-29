@@ -50,10 +50,10 @@ const Home = () => {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <div className="text-center">
-                                <button className="nav-link" onClick={() => { getAllPropertiesHandler() }}>
+                                <Link className="nav-link" onClick={() => { getAllPropertiesHandler() }}>
                                     <i className="fas fa-home"></i>
                                     <div>All</div>
-                                </button>
+                                </Link>
                             </div>
                         </li>
                         {
@@ -61,10 +61,10 @@ const Home = () => {
                                 return (
                                     <li key={type.pTypeId} className="navbar-item">
                                         <div className="text-center">
-                                            <button className="nav-link ms-3" onClick={() => {getByTypes(type.pTypeId) }}>
+                                            <Link className="nav-link ms-3" onClick={() => {getByTypes(type.pTypeId) }}>
                                                 <i className={type.pTypeIcon}></i>
                                                 <div>{type.pTypeName}</div>
-                                            </button>
+                                            </Link>
                                         </div>
                                     </li>
                                 )

@@ -1,27 +1,35 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useParams
-import { Link } from 'react-router-dom'; // Add this line to import Link
-
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { getReservationDetails } from '../../API/ReservationApi';
 
 function ReservationDetail() {
-    let navigate = useNavigate();
-    const [reservation, setReservation] = useState();
-    const [customer, setCustomer] = useState();
     let { id } = useParams();
 
+    let navigate = useNavigate();
+
+    const [reservation, setReservation] = useState();
+    const [customer, setCustomer] = useState();
+    const [error, setError] = useState(null);
+
     useEffect(() => {
-        axios.get(`http://localhost:47251/api/Reservation/Details/${id}`)
-            .then(response => {
-                setReservation(response.data.reservation);
-                setCustomer(response.data.customer);
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(reservation);
-                console.error('Error fetching data:', error);
-            });
+
+        const fetchData = async () => {
+            try {
+                const data = await getReservationDetails(id);
+                setReservation(data.reservation);
+                setCustomer(data.customer);
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                setError(err);
+            }
+        };
+
+        fetchData();
     }, []);
+
+
+
     if (!reservation) {
         return <div>Loading...</div>; // Or any other loading state
     }

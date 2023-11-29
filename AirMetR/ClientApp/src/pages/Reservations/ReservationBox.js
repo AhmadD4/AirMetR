@@ -2,43 +2,42 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { getUnavailableDates, postReservation } from '../../API/ReservationApi';
+import { getPropertyDetails } from '../../API/Services';
 
 const PropertyReservation = ({ id }) => {
+    let navigate = useNavigate();
 
 
-    let navigate = useNavigate(); // This is for redirecting for the cancel action
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [pricePerNight, setPricePerNight] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const [unavailableDates, setUnavailableDates] = useState([]);
+    const [formError, setFormError] = useState(""); // State to store the error message
+
 
     // Function to fetch unavailable dates
     const fetchUnavailableDates = async () => {
         try {
-            const response = await axios.get(`http://localhost:47251/api/Reservation/GetUnavailableDates/${id}`);
-            setUnavailableDates(response.data.unavailableDates);
-            console.log("UnavailableDates: ", unavailableDates);
-            console.log("UnavailableDates: ", response.data);
+            const data = await getUnavailableDates(id);
+            setUnavailableDates(data.unavailableDates);
         } catch (error) {
             console.error('Error fetching unavailable dates:', error);
         }
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:47251/api/Property/Details/${id}`)
-            .then(response => {
-                setPricePerNight(response.data.property.price);
-                console.log(response.data.price);
-            })
-            .catch(error => {
-                console.log(pricePerNight);
+        const fetchData = async () => {
+            try {
+                const data = await getPropertyDetails(id);
+                setPricePerNight(data.property.price);
+            } catch (error) {
                 console.error('Error fetching data:', error);
-            });
-    }, []);
-
-    useEffect(() => {
+            }
+        };
+        fetchData();
         // Initialize dates to default values
         const today = new Date();
         const threeDaysLater = new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000);
@@ -46,6 +45,7 @@ const PropertyReservation = ({ id }) => {
         setStartDate(threeDaysLater.toISOString().split('T')[0]);
         setEndDate(tenDaysLater.toISOString().split('T')[0]);
     }, []);
+
 
     useEffect(() => {
         // Calculate total price when dates change
@@ -60,6 +60,7 @@ const PropertyReservation = ({ id }) => {
         fetchUnavailableDates();
     }, [startDate, endDate, pricePerNight]);
 
+
     const isDateUnavailable = (date) => {
         return unavailableDates.includes(date);
     };
@@ -70,22 +71,20 @@ const PropertyReservation = ({ id }) => {
         for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
             // Format date to 'YYYY-MM-DD'
             let formattedDate = dt.toISOString().split('T')[0];
-            console.log(dt);
             if (isDateUnavailable(formattedDate)) {
-
-                console.log(formattedDate);
                 return true;
             }
         }
         return false;
     };
 
-    const handleSubmit = (event) => {
-
-        console.log({ id, startDate, endDate, totalPrice });
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        setFormError(""); // Reset any existing errors
         // Check if any date in the selected range is unavailable
         if (isDateRangeUnavailable(startDate, endDate)) {
+            
+            setFormError("Unavailable dates. Please try again.");
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -99,31 +98,29 @@ const PropertyReservation = ({ id }) => {
         formData.append('endDate', endDate);
         formData.append('numberOfGuests', numberOfGuests);
 
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
+        try {
+            await postReservation(id, formData);
 
-        axios.post(`http://localhost:47251/api/Reservation/CompleteReservation/${id}`, formData)
-            .then(response => {
-                // Handle successful submission
-                console.log('Success:', response.data);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your reservation has been approved",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/reservations'); // Redirect to a success page, or home, etc.
-            })
-            .catch(error => {
-                // Handle errors
-                console.error('Error submitting form:');
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your reservation has been approved",
+                showConfirmButton: false,
+                timer: 1500
             });
+            navigate('/reservations'); // Redirect to a success page, or home, etc.
+
+        } catch (error) {
+            console.error('Error submitting form:');
+            if (error) {
+                setFormError(error.message || "An error occurred. Please try again.");
+            }
+        }
     };
 
     return (
         <div className="col-md-6">
+            {formError && <div className="alert alert-danger" role="alert">{formError}</div>}
             <div className="property-description">
                 <span className="d-inline-block property-price" id="singleDayPrice">
                     {pricePerNight.toFixed(2)} NOK <span className="text-muted fs-6">night</span>

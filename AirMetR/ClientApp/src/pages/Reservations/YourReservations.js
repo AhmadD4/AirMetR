@@ -1,8 +1,12 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getPropertyDetails } from '../../API/Services';
+import { getAllResByUserId } from '../../API/ReservationApi';
 
 const YourReservations = () => {
+    let navigate = useNavigate();
+
     const [reservations, setReservations] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,22 +14,26 @@ const YourReservations = () => {
 
     const getReservations = async () => {
         try {
-            const res = await axios.get('http://localhost:47251/api/Reservation/Reservation');
-            setReservations(res.data.reservations);
-            setCustomers(res.data.customerInfo);
+            const data = await getAllResByUserId();
+            setReservations(data.reservations);
+            setCustomers(data.customerInfo);
 
             // Extract unique propertyIds
-            const propertyIds = [...new Set(res.data.reservations.map(r => r.propertyId))];
-            console.log(propertyIds);
+            const propertyIds = [...new Set(data.reservations.map(r => r.propertyId))];
 
 
             // Fetch property details for each unique propertyId
-            const propertiesPromises = propertyIds.map(id => axios.get(`http://localhost:47251/api/Property/Details/${id}`));
+            const propertiesPromises = propertyIds.map(id => getPropertyDetails(id));
             const propertiesResponses = await Promise.all(propertiesPromises);
+            // Extract property information from each response
+            const propertiesData = propertiesResponses.reduce((acc, curr, index) => {
+                const propertyInfo = curr.property; // Assuming property information is in curr.property
 
-            // Map properties to an object for easy access
-            const propertiesData = propertiesResponses.reduce((acc, curr) => {
-                acc[curr.data.propertyId] = curr.data;
+                if (propertyInfo) {
+                    const propertyId = propertyIds[index];
+                    acc[propertyId] = propertyInfo;
+                }
+
                 return acc;
             }, {});
 
@@ -49,10 +57,10 @@ const YourReservations = () => {
     if (!reservations || reservations.length === 0) {
         return <div>No reservations available.</div>;
     }
-    console.log(reservations);
+
     return (
         <div>
-            <h1>My Reservation</h1>
+            <h1>My Reservations</h1>
             <table className="table">
                 <thead>
                     <tr>
@@ -97,6 +105,9 @@ const YourReservations = () => {
                     })}
                 </tbody>
             </table>
+            <div>
+                <button onClick={() => navigate('/')} className="btn btn-primary">Reserve more!</button>
+            </div>
         </div>
     );
 };

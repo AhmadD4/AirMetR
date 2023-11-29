@@ -1,33 +1,37 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { getPropertyDetails } from '../../API/Services';
+import { getAllResByPropertyId } from '../../API/ReservationApi';
 
 const ReservationsList = () => {
+    let { id } = useParams();
 
     let navigate = useNavigate(); // This is for redirecting for the cancel action
-    let { id } = useParams();
+
     const [reservations, setReservations] = useState([]);
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getReservations = async (id) => {
+    const getReservations = async () => {
         try {
-            const res = await axios.get(`http://localhost:47251/api/Reservation/ListReservations/${id}`);
-            setReservations(res.data.reservations);
-            console.log(reservations);
+            const data = await getAllResByPropertyId(id);
+            setReservations(data.reservations);
 
             // Extract unique propertyIds
-            const propertyIds = [...new Set(res.data.reservations.map(r => r.propertyId))];
-            console.log(propertyIds);
-
-
+            const propertyIds = [...new Set(data.reservations.map(r => r.propertyId))];
             // Fetch property details for each unique propertyId
-            const propertiesPromises = propertyIds.map(id => axios.get(`http://localhost:47251/api/Property/Details/${id}`));
+            const propertiesPromises = propertyIds.map(id => getPropertyDetails(id));
             const propertiesResponses = await Promise.all(propertiesPromises);
+            // Extract property information from each response
+            const propertiesData = propertiesResponses.reduce((acc, curr, index) => {
+                const propertyInfo = curr.property; // Assuming property information is in curr.property
 
-            // Map properties to an object for easy access
-            const propertiesData = propertiesResponses.reduce((acc, curr) => {
-                acc[curr.data.propertyId] = curr.data;
+                if (propertyInfo) {
+                    const propertyId = propertyIds[index];
+                    acc[propertyId] = propertyInfo;
+                }
+
                 return acc;
             }, {});
 
@@ -40,7 +44,7 @@ const ReservationsList = () => {
     };
 
     useEffect(() => {
-        getReservations(id);
+        getReservations();
     }, []);
 
     if (loading) {
@@ -91,16 +95,16 @@ const ReservationsList = () => {
                                 <tr key={reservation.reservationId}>
                                     <td>
                                         <Link to={`/property/${reservation.propertyId}`}>
-                                            {property.title || 'Not Available'}
+                                            {property.title}
                                         </Link>
                                     </td>
-                                    <td>{property.address || 'Not Available'}</td>
+                                    <td>{property.address}</td>
                                     <td>{reservation.customer.name}</td>
                                     <td>{new Date(reservation.startDate).toLocaleDateString()}</td>
                                     <td>{new Date(reservation.endDate).toLocaleDateString()}</td>
                                     <td>{reservation.numberOfGuests}</td>
                                     <td>{totalDays}</td>
-                                    <td>{property.price || 'Not Available'}</td>
+                                    <td>{property.price}</td>
                                     <td>{totalPrice}</td>
                                     <td>
                                         <Link to={`/reservation/detail/${reservation.reservationId}`}>Details</Link>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { deleteReservation, getReservationDetails } from '../../API/ReservationApi';
 
 function DeleteReservation() {
     let navigate = useNavigate();
@@ -12,20 +13,19 @@ function DeleteReservation() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:47251/api/Reservation/Details/${id}`)
-            .then(response => {
-                setReservation(response.data.reservation);
-                console.log(response.data);
-                console.log(reservation);
-                setIsLoading(false);
-            })
-            .catch(err => {
-                setError(err.message);
-                setIsLoading(false);
-            });
+        const fetchData = async () => {
+            try {
+                const data = await getReservationDetails(id);
+                setReservation(data.reservation);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setError(error);
+            }
+        };
+        fetchData();
     }, [id]);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -34,20 +34,19 @@ function DeleteReservation() {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:47251/api/Reservation/DeleteReservation/${id}`)
-                    .then(() => {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                        navigate('/reservations');
-                    })
-                    .catch(err => {
-                        setError(err.message);
+                try {
+                    await deleteReservation(id);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
                     });
+                    navigate('/reservations');
+                } catch (error) {
+                    setError(error.message);
+                }
             }
         });
 

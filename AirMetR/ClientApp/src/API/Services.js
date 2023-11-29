@@ -20,15 +20,6 @@ const handleError = (error) => {
     }
 };
 
-const getUpdatePropertyData = async (propertyId) => {
-    try {
-        const response = await api.get(`/Update/${propertyId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching property update data:', error);
-        handleError(error);
-    }
-}
 
 const getAllProperties = async () => {
     try {
@@ -144,7 +135,7 @@ const listPropertiesByCustomer = async () => {
 
 
 export {
-    getUpdatePropertyData,
+    handleError,
     getAllProperties,
     getAllTypes,
     getAllByTypes,
