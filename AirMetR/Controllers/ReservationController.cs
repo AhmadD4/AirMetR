@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AirMetR.DAL;
+﻿using AirMetR.DAL;
 using AirMetR.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -94,6 +87,12 @@ namespace AirMetR.Controllers
 
                 // Use a hardcoded or fetched user ID
                 var userId = "2"; // Hardcoded for example
+                var customer = await _reservationRepository.Customer(userId);
+                if (customer == null)
+                {
+                    _logger.LogError("[ReservationController] Property not found for the PropertyId {PropertyId}", id);
+                    return NotFound("Property not found for the PropertyId");
+                }
 
                 var property = await _reservationRepository.GetPropertyById(id);
                 if (property == null)
@@ -122,7 +121,7 @@ namespace AirMetR.Controllers
                 // Create and save a reservation
                 var reservation = new Reservation
                 {
-                    Customer = await _reservationRepository.Customer(userId),
+                    Customer = customer,
                     PropertyId = id,
                     StartDate = reservationDate,
                     EndDate = endReservationDate,
@@ -137,7 +136,7 @@ namespace AirMetR.Controllers
                     return BadRequest("Failed to create reservation.");
                 }
 
-                return Ok(new { Message = "Reservation successfully created.", ReservationId = reservation.ReservationId });
+                return Ok(new { Message = "Reservation successfully created.", reservation.ReservationId });
             }
             catch
             {

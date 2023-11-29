@@ -10,6 +10,7 @@ const UpdateReservation = () => {
 
     let navigate = useNavigate();
     const [reservation, setReservation] = useState();
+    const [property, setProperty] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [pricePerNight, setPricePerNight] = useState(0);
@@ -19,41 +20,49 @@ const UpdateReservation = () => {
     const [unavailableDates, setUnavailableDates] = useState([]);
     const [formError, setFormError] = useState(""); // State to store the error message
 
-    // Function to fetch unavailable dates
+    
     const fetchUnavailableDates = async () => {
         try {
-            const data = await getUnavailableDates(id);
+            const data = await getUnavailableDates(property.propertyId);
             setUnavailableDates(data.unavailableDates);
         } catch (error) {
             console.error('Error fetching unavailable dates:', error);
         }
     };
 
+
+    const fetchPData = async () => {
+        try {
+            const propertyData = await getPropertyDetails(id);
+            setProperty(propertyData.property);
+            setPricePerNight(property.price);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setFormError(error);
+        }
+    };
+    const fetchData = async () => {
+        try {
+            const data = await getReservationDetails(id);
+            setReservation(data.reservation);
+            const propertyData = await getPropertyDetails(id);
+            setProperty(propertyData.property);
+            setPricePerNight(property.price);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setFormError(error);
+        }
+    };
+
     // Fetch the existing reservation details
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getReservationDetails(id);
-                setReservation(data.reservation);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setFormError(error);
-            }
-        };
         fetchData();
     }, []);
+    
 
     useEffect(() => {
-        const fetchPropertyData = async () => {
-            try {
-                const data = await getPropertyDetails(id);
-                setPricePerNight(data.property.price);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-        fetchPropertyData();
         // Calculate total price when dates change
+        fetchPData();
         const start = new Date(startDate);
         const end = new Date(endDate);
         const timeDiff = end - start;
@@ -65,6 +74,9 @@ const UpdateReservation = () => {
         fetchUnavailableDates();
     }, [startDate, endDate, pricePerNight]);
 
+
+    // Function to fetch unavailable dates
+
     const isDateUnavailable = (date) => {
         return unavailableDates.includes(date);
     };
@@ -75,16 +87,13 @@ const UpdateReservation = () => {
         for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
             // Format date to 'YYYY-MM-DD'
             let formattedDate = dt.toISOString().split('T')[0];
-            console.log(dt);
             if (isDateUnavailable(formattedDate)) {
-
-                console.log(formattedDate);
                 return true;
             }
         }
         return false;
     };
-    console.log()
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setFormError(""); // Reset any existing errors
@@ -157,13 +166,13 @@ const UpdateReservation = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="numberOfGuests">Number of Guests:</label>
+                    <label htmlFor="numberOfGuests">Number of Guests:</label><span className="text">(Max: {property.guest})</span>
                     <input
                         type="number"
                         className="form-control"
                         id="numberOfGuests"
                         value={numberOfGuests}
-                        onChange={(e) => setEndDate(e.target.value)}
+                        onChange={(e) => setNumberOfGuests(e.target.value)}
                         required />
                 </div>
 

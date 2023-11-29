@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AirMetR.DAL;
+﻿using AirMetR.DAL;
 using AirMetR.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AirMetR.Controllers
 {
@@ -27,12 +17,7 @@ namespace AirMetR.Controllers
             _propertyRepository = propertyRepository;
             _logger = logger;
         }
-        /// <summary>
-        /// Retrieves a specific item by unique id
-        /// </summary>
-        /// <param name="id">The item's unique identifier</param>
-        /// <returns>Returns the item with the specified id</returns>
-        // GET: api/values
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Property>>?> GetAllProperties()
         {
@@ -217,7 +202,7 @@ namespace AirMetR.Controllers
                     // Add the selected amenities to the property
                     foreach (var amenity in selectedAmenities)
                     {
-                        newProperty.PropertyAmenities.Add(new PropertyAmenity { Amenity = amenity });
+                        newProperty?.PropertyAmenities?.Add(new PropertyAmenity { Amenity = amenity });
                     }
                 }
 
@@ -268,7 +253,7 @@ namespace AirMetR.Controllers
             // Create a response object
             var response = new
             {
-                property = property, // Assuming this object has all the necessary details
+                property, // Assuming this object has all the necessary details
                 PTypes = pTypes.Select(pt => new { pt.PTypeId, pt.PTypeName }),
                 Amenities = amenities.Select(a => new { a.AmenityId, a.AmenityName, a.AmenityIcon })
             };
@@ -337,7 +322,7 @@ namespace AirMetR.Controllers
                     // Add the selected amenities to the property
                     foreach (var amenity in selectedAmenities)
                     {
-                        property.PropertyAmenities.Add(new PropertyAmenity { Amenity = amenity });
+                        property?.PropertyAmenities?.Add(new PropertyAmenity { Amenity = amenity });
                     }
                 }
                 // Update the property and check for success

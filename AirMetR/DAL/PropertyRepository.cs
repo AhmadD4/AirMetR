@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AirMetR.Models;
-using Microsoft.CodeAnalysis;
 
 namespace AirMetR.DAL
 {
@@ -268,10 +267,7 @@ namespace AirMetR.DAL
                 }
 
                 // Initialize PropertyAmenities if it's null
-                if (property.PropertyAmenities == null)
-                {
-                    property.PropertyAmenities = new List<PropertyAmenity>();
-                }
+                property.PropertyAmenities ??= new List<PropertyAmenity>();
 
                 // Add the selected amenities
                 foreach (var amenity in selectedAmenities)

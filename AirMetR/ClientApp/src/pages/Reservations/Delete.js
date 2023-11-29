@@ -8,6 +8,7 @@ import { deleteReservation, getReservationDetails } from '../../API/ReservationA
 function DeleteReservation() {
     let navigate = useNavigate();
     let { id } = useParams();
+
     const [reservation, setReservation] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -23,9 +24,10 @@ function DeleteReservation() {
             }
         };
         fetchData();
+        setIsLoading(false);
     }, [id]);
 
-    const handleDelete = async () => {
+    const handleDelete = () => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",

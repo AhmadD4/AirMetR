@@ -1,5 +1,4 @@
-﻿using System;
-using AirMetR.Models;
+﻿using AirMetR.Models;
 
 namespace AirMetR.DAL
 {

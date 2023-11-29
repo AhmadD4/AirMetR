@@ -58,7 +58,7 @@ const postReservation = async (id, formData) => {
 
 const deleteReservation = async (id) => {
     try {
-        const response = await api.delet(`/DeleteReservation/${id}`);
+        const response = await api.delete(`/DeleteReservation/${id}`);
         return response.data;
     } catch (error) {
         handleError(error);
