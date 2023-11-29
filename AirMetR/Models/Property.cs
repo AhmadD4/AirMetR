@@ -40,7 +40,6 @@ namespace AirMetR.Models
         public virtual PType PType { get; set; } = default!;
 
         // List of the amanities for the property
-        [JsonIgnore]
         public virtual ICollection<PropertyAmenity>? PropertyAmenities { get; set; } = new List<PropertyAmenity>();
 
         // Add a property to receive selected amenity IDs

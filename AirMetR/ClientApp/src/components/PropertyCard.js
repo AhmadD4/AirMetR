@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom'; // Add this line to import Link
 import { Carousel } from './Carousel';
-import './PropertyCard.css';
 
 function PropertyCard({ property }) {
     const { propertyId, images, description, address, price } = property;

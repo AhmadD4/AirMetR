@@ -13,10 +13,10 @@ namespace AirMetR.Models
         public int PropertyId { get; set; }
 
         // Foreign key to the associated User
-        //public string UserId { get; set; } = string.Empty;
+        public string CustomerId { get; set; } = string.Empty;
 
         // Navigation property to the associated Property
-        //public virtual Customer Customer { get; set; } = default!;
+        public virtual Customer Customer { get; set; } = default!;
 
         // Start date of the reservation
         public DateTime StartDate { get; set; }

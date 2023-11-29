@@ -49,6 +49,7 @@ namespace AirMetR.Migrations
                 {
                     PTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    PTypeIcon = table.Column<string>(type: "TEXT", nullable: false),
                     PTypeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -143,12 +144,12 @@ namespace AirMetR.Migrations
                     ReservationId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     PropertyId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerId = table.Column<string>(type: "TEXT", nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NumberOfGuests = table.Column<int>(type: "INTEGER", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false),
-                    TotalDays = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerId = table.Column<string>(type: "TEXT", nullable: true)
+                    TotalDays = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,7 +158,8 @@ namespace AirMetR.Migrations
                         name: "FK_Reservations_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId");
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Properties_PropertyId",
                         column: x => x.PropertyId,

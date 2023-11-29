@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirMetR.Migrations
 {
     [DbContext(typeof(PropertyDbContext))]
-    [Migration("20231127123443_InitDb")]
+    [Migration("20231128211357_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -82,6 +82,10 @@ namespace AirMetR.Migrations
                     b.Property<int>("PTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PTypeIcon")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PTypeName")
                         .IsRequired()
@@ -191,6 +195,7 @@ namespace AirMetR.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CustomerId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndDate")
@@ -269,15 +274,19 @@ namespace AirMetR.Migrations
 
             modelBuilder.Entity("AirMetR.Models.Reservation", b =>
                 {
-                    b.HasOne("AirMetR.Models.Customer", null)
+                    b.HasOne("AirMetR.Models.Customer", "Customer")
                         .WithMany("Reservations")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AirMetR.Models.Property", "Property")
                         .WithMany("Reservations")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Property");
                 });

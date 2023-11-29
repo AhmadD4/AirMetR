@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import './Carousel.css';
 
 function Carousel({ property }) {
     const { propertyId, images, description } = property;

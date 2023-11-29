@@ -1,0 +1,314 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+/* Example CSS styles */
+.property-details-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.property-address {
+    font-size: 24px;
+    color: #333;
+}
+
+.property-info {
+    margin-top: 20px;
+}
+
+.property-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.property-description {
+    margin-top: 40px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-left: 100px;
+}
+
+.property-price {
+    font-size: 30px;
+    color: #333;
+}
+
+#totalPrice {
+    margin-left: 0;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.back-to-home-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+    .back-to-home-link:hover {
+        text-decoration: underline;
+    }
+
+.custom-card {
+    height: 100%; /* Adjust the height as needed */
+    overflow: hidden;
+    width: 100%;
+}
+
+.custom-card-img {
+    object-fit: cover;
+    height: 100%; /* Ensures the image fills the entire height of the card */
+    width: 100%; /* Ensures the image fills the entire width of the card */
+}
+
+.img-div {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    margin: 10px;
+    position: relative;
+}
+
+.btn-danger {
+    margin-left: 85px;
+}
+
+#card-title {
+    text-decoration: none;
+    color: black;
+}
+
+#card-text {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#Reserve {
+    margin-left: 5px;
+}
+
+
+
+.space {
+    line-height: 200%;
+}
+
+
+.property-info-item {
+    display: inline-block;
+    margin-right: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.property-description {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.back-to-home-link {
+    display: block;
+    margin-top: 15px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-family: 'Verdana' /* Change this to your desired font */
+}
+
+.active-thumbnail {
+    border: 2px solid blue;
+}
+
+#propertyCarousel {
+    max-width: 600px; /* Set the maximum width */
+    margin: auto; /* Center the carousel */
+}
+
+    #propertyCarousel .carousel-inner img {
+        max-height: 400px; /* Set the maximum height */
+        width: auto; /* Maintain aspect ratio */
+        margin: auto; /* Center the image */
+    }
+
+
+
+.selected {
+    color: gold; /* Color for selected stars */
+}
+
+.rating-stars {
+    font-size: 20px; /* Adjust the size of the stars as needed */
+}
+
+.star {
+    background-color: lightgrey;
+}
+
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.form-control {
+    width: 300px; /* Adjust the width as needed */
+}
+
+.custom-resize {
+    width: 600px;
+}
+
+.number-resize {
+    width: 200px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+
+.table {
+    font-family: Arial, sans-serif;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+    td a {
+        margin-right: 10px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+/* Custom Checkbox */
+.custom-checkbox {
+    position: relative;
+    padding-left: 25px; /* Reduced from 35px */
+    cursor: pointer;
+    font-size: 16px; /* Reduced from 22px */
+    user-select: none;
+}
+
+    .custom-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .custom-checkbox .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px; /* Reduced from 25px */
+        width: 18px; /* Reduced from 25px */
+        background-color: #ccc;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+/* CSS for grid with 2 to 3 columns */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-left: 0px; /* Center align */
+    width: fit-content; /* Adjust width to content */
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .grid.grid--cols2to3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.create-page {
+    margin: auto;
+    margin-left: 50px;
+}
+
+.ml-50 {
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border-bottom: groove;
+}
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+
+@media (min-width: 1025px) {
+    .h-custom-2 {
+        height: 100%;
+    }
+}
+
+#logo {
+    height: 100px;
+}

@@ -1,7 +1,9 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Create.css';
+import { getCreateData, submitProperty } from '../../API/Services';
+import Swal from 'sweetalert2';
+
 
 function CreateProperty() {
 
@@ -25,18 +27,19 @@ function CreateProperty() {
     const [imageInputs, setImageInputs] = useState([{ file: null, preview: null }]);
     const [formError, setFormError] = useState(""); // State to store the error message
     const [isSubmitting, setIsSubmitting] = useState(false); // State to indicate submission status
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log('Making API call to get create data...');
-        axios.get(`http://localhost:47251/api/Property/GetCreateData`)
-            .then(response => {
-                console.log('Response:', response.data);
-                setPropertyTypes(response.data.pTypes);
-                setAmenities(response.data.amenities);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+        const fetchData = async () => {
+            try {
+                const data = await getCreateData();
+                setPropertyTypes(data.pTypes);
+                setAmenities(data.amenities);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        fetchData();
     }, []);
 
     const handleAmenityChange = (amenityId) => {
@@ -58,9 +61,11 @@ function CreateProperty() {
         setImageInputs(newImageInputs);
     };
 
+
     const addImageInput = () => {
         setImageInputs([...imageInputs, { file: null, preview: null }]);
     };
+
 
     const removeImage = (index) => {
         const newImageInputs = imageInputs.filter((_, i) => i !== index);
@@ -71,7 +76,7 @@ function CreateProperty() {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true); // Indicate the start of form submission
         setFormError(""); // Reset any existing errors
@@ -99,43 +104,31 @@ function CreateProperty() {
             }
         });
 
-        console.log(property);
-        console.log(selectedAmenities);
-        console.log(imageInputs);
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
 
-
-        axios.post(`http://localhost:47251/api/Property/Create`, formData)
-            .then(response => {
-                // Handle successful submission
-                console.log('Success:', response.data);
-                setIsSubmitting(false); // Reset submission status
-                navigate('/'); // Redirect to a success page, or home, etc.
-            })
-            .catch(error => {
-                // Handle errors
-                console.error('Error submitting form:', error.response || error);
-                setIsSubmitting(false); // Reset submission status
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    setFormError(error.response.data.message || "An error occurred. Please try again.");
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    setFormError("No response from the server. Please check your connection.");
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    setFormError("Error: " + error.message);
-                }
+        try {
+            await submitProperty(formData);
+            setIsSubmitting(false); // Reset submission status
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your property has been created",
+                showConfirmButton: false,
+                timer: 1500
             });
+            navigate('/properties/2'); // Redirect to a properties list
+        } catch (error) {
+            // Handle errors
+            console.error('Error submitting form:', error);
+            setIsSubmitting(false); // Reset submission status
+
+            if (error) {
+                setFormError(error.message || "An error occurred. Please try again.");
+            }
+        }
     };
 
     const handleCancel = () => {
-        // If you want to redirect to a different page
-        navigate('/');
-        // ... other handler functions
+        navigate('/properties/2');
     }
     return (
         <form onSubmit={handleSubmit}>

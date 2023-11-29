@@ -65,7 +65,7 @@ namespace AirMetR.DAL
             try
             {
                 // Include images
-                return await _db.Properties.Include(p => p.Images).FirstOrDefaultAsync(i => i.PropertyId == id);
+                return await _db.Properties.Include(p => p.Images).Include(p => p.PropertyAmenities).FirstOrDefaultAsync(i => i.PropertyId == id);
 
             }
             catch (Exception e)

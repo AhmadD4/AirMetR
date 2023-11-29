@@ -80,6 +80,10 @@ namespace AirMetR.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PTypeIcon")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PTypeName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -188,6 +192,7 @@ namespace AirMetR.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CustomerId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndDate")
@@ -266,15 +271,19 @@ namespace AirMetR.Migrations
 
             modelBuilder.Entity("AirMetR.Models.Reservation", b =>
                 {
-                    b.HasOne("AirMetR.Models.Customer", null)
+                    b.HasOne("AirMetR.Models.Customer", "Customer")
                         .WithMany("Reservations")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AirMetR.Models.Property", "Property")
                         .WithMany("Reservations")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Property");
                 });

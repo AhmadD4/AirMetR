@@ -35,12 +35,18 @@
     <None Remove="DAL\" />
     <None Remove="Models\" />
     <None Remove="ClientApp\src\pages\" />
+    <None Remove="ClientApp\src\API\" />
+    <None Remove="ClientApp\src\pages\Reservations\" />
+    <None Remove="ClientApp\src\pages\Property\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DAL\" />
     <Folder Include="Models\" />
     <Folder Include="ClientApp\src\pages\" />
+    <Folder Include="ClientApp\src\API\" />
+    <Folder Include="ClientApp\src\pages\Reservations\" />
+    <Folder Include="ClientApp\src\pages\Property\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

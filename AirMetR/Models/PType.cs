@@ -9,6 +9,8 @@ namespace AirMetR.Models
         // Unique identifier for the property type
         public int PTypeId { get; set; }
 
+        public string PTypeIcon { get; set; } = string.Empty;
+
         // Name of the property type
         [StringLength(50)]
         public string PTypeName { get; set; } = string.Empty;

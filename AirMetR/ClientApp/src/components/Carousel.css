@@ -1,8 +1,0 @@
-﻿body {
-}
-
-.carousel .carousel-inner img {
-    max-height: 400px; /* Set the maximum height */
-    width: auto; /* Maintain aspect ratio */
-    margin: auto; /* Center the image */
-}

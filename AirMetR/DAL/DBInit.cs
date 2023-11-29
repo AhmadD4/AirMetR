@@ -80,12 +80,12 @@ namespace AirMetR.Models
             {
                 var pType = new List<PType>
                 {
-                   new PType { PTypeName = "House" },
-                   new PType { PTypeName = "Cabins" },
-                   new PType { PTypeName = "Domes" },
-                   new PType { PTypeName = "Treehouses" },
-                   new PType { PTypeName = "Amazing Pools" },
-                   new PType { PTypeName = "Houseboats" },
+                   new PType { PTypeName = "House", PTypeIcon = "fas fa-house-user" },
+                   new PType { PTypeName = "Cabins", PTypeIcon = "fas fa-dungeon" },
+                   new PType { PTypeName = "Domes", PTypeIcon = "fas fa-campground" },
+                   new PType { PTypeName = "Treehouses", PTypeIcon = "fas fa-house" },
+                   new PType { PTypeName = "Amazing Pools", PTypeIcon = "fas fa-swimming-pool" },
+                   new PType { PTypeName = "Houseboats", PTypeIcon = "fas fa-ship" },
                 };
                 context.AddRange(pType);
                 context.SaveChanges();
@@ -131,7 +131,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
 
                     },
 
@@ -147,7 +147,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
 
                     },
                     new Property
@@ -162,7 +162,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -177,7 +177,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -192,7 +192,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -207,7 +207,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -222,7 +222,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -237,7 +237,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
 
                     },
 
@@ -253,7 +253,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
 
                     },
 
@@ -269,7 +269,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
 
                     },
 
@@ -285,7 +285,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
                     new Property
                     {
@@ -299,7 +299,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
 
                     new Property
@@ -314,7 +314,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
 
                     new Property
@@ -329,7 +329,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
 
                     new Property
@@ -344,7 +344,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
 
                     new Property
@@ -359,7 +359,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 5,
                         CustomerId = "1",
-                        
+
                     },
 
                      new Property
@@ -374,7 +374,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "1",
-                        
+
                     },
 
                      new Property
@@ -389,7 +389,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
 
                     },
 
@@ -405,7 +405,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId =1 ,
                         CustomerId = "2",
-                        
+
 
                     },
 
@@ -421,7 +421,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
 
                     },
 
@@ -437,7 +437,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
 
                     },
 
@@ -453,7 +453,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
 
                     },
 
@@ -469,7 +469,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -484,7 +484,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 1,
                         CustomerId = "2",
-                        
+
                     },
 
                     new Property
@@ -499,7 +499,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -514,7 +514,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -529,7 +529,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -544,7 +544,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -559,7 +559,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -574,7 +574,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -589,7 +589,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                     new Property
@@ -604,7 +604,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                      new Property
@@ -619,7 +619,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                       new Property
@@ -634,7 +634,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
                        new Property
@@ -649,7 +649,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
 
@@ -665,7 +665,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 3,
                         CustomerId = "3",
-                        
+
                     },
 
 
@@ -681,7 +681,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -696,7 +696,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -711,7 +711,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                        new Property
@@ -726,7 +726,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                          new Property
@@ -741,7 +741,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
 
@@ -757,7 +757,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -772,7 +772,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
 
@@ -788,7 +788,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
 
@@ -804,7 +804,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -819,7 +819,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -834,7 +834,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -849,7 +849,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 4,
                         CustomerId = "4",
-                        
+
                     },
 
                         new Property
@@ -864,7 +864,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                         new Property
@@ -879,7 +879,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                          new Property
@@ -894,7 +894,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -910,7 +910,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -926,7 +926,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                          new Property
@@ -941,7 +941,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -957,7 +957,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -973,7 +973,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -989,7 +989,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
 
@@ -1005,7 +1005,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                         new Property
@@ -1020,7 +1020,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                          new Property
@@ -1035,7 +1035,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 2,
                         CustomerId = "5",
-                        
+
                     },
 
                          new Property
@@ -1050,7 +1050,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                          new Property
@@ -1065,7 +1065,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                          new Property
@@ -1080,7 +1080,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                         new Property
@@ -1095,7 +1095,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
 
@@ -1111,7 +1111,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
 
@@ -1127,7 +1127,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                         new Property
@@ -1142,7 +1142,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
 
@@ -1159,7 +1159,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
 
@@ -1175,7 +1175,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
 
@@ -1191,7 +1191,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                          new Property
@@ -1206,7 +1206,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
 
                          new Property
@@ -1221,7 +1221,7 @@ namespace AirMetR.Models
                         BathRooms = 1,
                         PTypeId = 6,
                         CustomerId = "6",
-                        
+
                     },
                 };
 
@@ -2645,6 +2645,42 @@ namespace AirMetR.Models
 
                 };
                 context.AddRange(propertyAmenities);
+                context.SaveChanges();
+            }
+
+            if (!context.Reservations.Any())
+            {
+                var reservations = new List<Reservation>
+                {
+                    new Reservation { CustomerId = "1", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 3 },
+                    new Reservation { CustomerId = "1", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 4 },
+                    new Reservation { CustomerId = "1", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 5 },
+                    new Reservation { CustomerId = "1", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 6 },
+                    new Reservation { CustomerId = "1", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 7 },
+
+
+                    new Reservation { CustomerId = "3", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 3 },
+                    new Reservation { CustomerId = "3", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 4 },
+                    new Reservation { CustomerId = "3", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 5 },
+                    new Reservation { CustomerId = "3", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 6 },
+                    new Reservation { CustomerId = "3", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 7 },
+
+
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 3 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 4 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 5 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 6 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 7 },
+
+
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 3 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 4 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 5 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 6 },
+                    new Reservation { CustomerId = "4", StartDate = DateTime.Today.AddDays(8), EndDate = DateTime.Today.AddDays(14), NumberOfGuests = 1, PropertyId = 7 },
+
+                };
+                context.AddRange(reservations);
                 context.SaveChanges();
             }
         }
