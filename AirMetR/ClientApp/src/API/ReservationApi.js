@@ -1,22 +1,27 @@
 ﻿import axios from 'axios';
 import { handleError } from './Services';
 
-
+// Set up an axios instance with a base URL for the Reservation API.
 const api = axios.create({
     baseURL: 'http://localhost:47251/api/Reservation',
 });
 
 
+// Async function to get reservation details by ID.
 const getReservationDetails = async (id) => {
     try {
+        // Sending a GET request.
         const response = await api.get(`/Details/${id}`);
+        // Return the data from the response.
         return response.data;
     } catch (error) {
         console.error('Reservation Error fetching data:', error);
+        // Handle errors using a custom function.
         handleError(error);
     }
 };
 
+// Async function to get all reservations by a specific property ID.
 const getAllResByPropertyId = async (id) => {
     try {
         const response = await api.get(`/ListReservations/${id}`);
@@ -27,6 +32,7 @@ const getAllResByPropertyId = async (id) => {
     }
 };
 
+// Async function to get all reservations by a specific user ID.
 const getAllResByUserId = async () => {
     try {
         const response = await api.get('/Reservation');
@@ -36,6 +42,7 @@ const getAllResByUserId = async () => {
         handleError(error);
     }
 };
+
 
 const getUnavailableDates = async (id) => {
     try {
@@ -75,6 +82,7 @@ const putInReservation = async (id, formData) => {
 };
 
 
+// Export the functions to be used elsewhere in the application.
 export {
     getReservationDetails,
     getAllResByPropertyId,

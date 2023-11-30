@@ -1,6 +1,7 @@
 ﻿import axios from 'axios';
 
 
+// Set up an axios instance with a base URL for the Property API.
 const api = axios.create({
     baseURL: 'http://localhost:47251/api/Property',
 });

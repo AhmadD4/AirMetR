@@ -1,5 +1,4 @@
 ﻿import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteImage, getUpdateData, putInProperty } from '../../API/Services';
 import Swal from 'sweetalert2';
@@ -63,16 +62,6 @@ function UpdateProperty() {
         });
     };
 
-    const handleDeleteImage = async (imageId) => {
-        try {
-            await deleteImage(imageId);
-            // Remove the image from imageInputs state
-            //const newImageInputs = imageInputs.filter(image => image.id !== imageId);
-            //setImageInputs(newImageInputs);
-        } catch (error) {
-            console.error(error)
-        }
-    };
 
     const removeImage = (index) => {
         const image = imageInputs[index];

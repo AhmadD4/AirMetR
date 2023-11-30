@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 
+// Carousel component to display images of a property in a carousel format.
 function Carousel({ property }) {
+    // Destructuring property object to get propertyId, images array, and description.
     const { propertyId, images, description } = property;
     return (
         <div id={`carousel-${propertyId}`} className="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
@@ -23,7 +25,9 @@ function Carousel({ property }) {
     );
 }
 
+// ThumbNail component to display thumbnails of a property's images.
 function ThumbNail({ property }) {
+    // Destructuring to get propertyId and images array from the property object.
     const { propertyId, images } = property;
     return (
         <div className="row mt-4">
@@ -35,4 +39,6 @@ function ThumbNail({ property }) {
         </div>
     );
 }
+
+// Exporting both components for use in other parts of the application.
 export { Carousel, ThumbNail };

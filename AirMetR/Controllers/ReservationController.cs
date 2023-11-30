@@ -24,7 +24,7 @@ namespace AirMetR.Controllers
         public async Task<ActionResult<IEnumerable<Reservation>>> ListReservations(int id)
         {
             // Get reservations based on Property id
-            List<Reservation>? reservations = (List<Reservation>?)await _reservationRepository.GetReservationsByPropertyId(id);
+            var reservations = await _reservationRepository.GetReservationsByPropertyId(id) ?? new List<Reservation>();
             if (reservations == null)
             {
                 _logger.LogError("[HomeController] property list not found while executing _propertyRepository.GetAll()");

@@ -137,13 +137,9 @@ namespace AirMetR.Controllers
                 _logger.LogInformation("[PropertyController]property and amenities. Property: {@property}, PropertyAmenities: {@property.PropertyAmenities}", property, property.PropertyAmenities);
 
                 // Get the user id and fetch the customer data of the currently logged-in user
-                var userId = property.CustomerId;
-                Customer? customer = await _propertyRepository.Customer(userId);
-                if (customer == null)
-                {
-                    _logger.LogWarning("[PropertyController] User Not found!");
-                    return NotFound("User not found!");// Handle null userId
-                }
+                var userId = "2";
+                //Customer? customer = await _propertyRepository.Customer(userId);
+                
 
                 // Handle uploaded image files
                 if (property.Files != null)
@@ -211,7 +207,7 @@ namespace AirMetR.Controllers
 
                 if (returnOk)
                 {
-                    return Ok(new { message = "Property created successfully." });
+                    return Ok(new ApiResponse { Message = "Property created successfully." });
                 }
                 else
                 {
@@ -329,12 +325,12 @@ namespace AirMetR.Controllers
                 var result = await _propertyRepository.Update(property);
                 if (result)
                 {
-                    return Ok(new { message = "Property updated successfully." });
+                    return Ok(new ApiResponse { Message = "Property updated successfully." });
                 }
                 else
                 {
                     _logger.LogWarning("[PropertyController] Property update failed for PropertyId {PropertyId:0000}", id);
-                    return BadRequest(new { message = "Failed to update property." });
+                    return BadRequest(new ApiResponse { Message = "Failed to update property." });
                 }
 
 
@@ -342,7 +338,7 @@ namespace AirMetR.Controllers
             catch (Exception e)
             {
                 _logger.LogError("[PropertyController] Error updating property: {Error}", e.Message);
-                return BadRequest(new { message = "Failed to update property." });
+                return BadRequest(new ApiResponse { Message = "Failed to update property." });
             }
 
         }
@@ -387,7 +383,7 @@ namespace AirMetR.Controllers
             }
 
             // Return a successful response
-            return Ok(new { message = "Property deleted successfully" });
+            return Ok(new ApiResponse { Message = "Property deleted successfully" });
         }
 
     }

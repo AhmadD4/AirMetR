@@ -8,8 +8,8 @@ function AmenitiesList({ propertyAmenities }) {
                     <div className="row row-cols-2">
                         {propertyAmenities.map((propertyAmenity, index) => (
                             <span key={index} className="amenity-item">
-                                <i className={propertyAmenity?.amenity?.amenityIcon}></i> {/* Displaying the icon */}
-                                {propertyAmenity?.amenity?.amenityName} {/* Displaying the name */}
+                                <i className={propertyAmenity?.amenity?.amenityIcon}></i>
+                                {propertyAmenity?.amenity?.amenityName}
                             </span>
                         ))}
                     </div>

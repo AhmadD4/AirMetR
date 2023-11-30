@@ -1,5 +1,4 @@
 ﻿import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getCreateData, submitProperty } from '../../API/Services';
 import Swal from 'sweetalert2';
@@ -9,8 +8,9 @@ function CreateProperty() {
 
     let navigate = useNavigate(); // This is for redirecting for the cancel action
 
-    const [property, setProperty] = useState({
-        customerId: 2,
+   // State for storing property details, types, amenities, and related information.
+   const [property, setProperty] = useState({
+       customerId: 2, // Assuming a default customer ID.
         title: '',
         address: '',
         pTypeId: '',
@@ -29,6 +29,7 @@ function CreateProperty() {
     const [isSubmitting, setIsSubmitting] = useState(false); // State to indicate submission status
     const [error, setError] = useState(null);
 
+    // Effect for fetching initial data (property types and amenities) on component mount.
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -42,16 +43,20 @@ function CreateProperty() {
         fetchData();
     }, []);
 
+    // Handler for changing selected amenities.
     const handleAmenityChange = (amenityId) => {
         setSelectedAmenities(prevSelected => {
             if (prevSelected.includes(amenityId)) {
+                // Remove the amenity if it's already selected.
                 return prevSelected.filter(id => id !== amenityId);
             } else {
+                // Add the amenity if it's not already selected.
                 return [...prevSelected, amenityId];
             }
         });
     };
 
+    // Handler for changing images.
     const handleImageChange = (index, file) => {
         const newImageInputs = [...imageInputs];
         newImageInputs[index] = {
@@ -62,11 +67,12 @@ function CreateProperty() {
     };
 
 
+    // Handler to add a new image input field.
     const addImageInput = () => {
         setImageInputs([...imageInputs, { file: null, preview: null }]);
     };
 
-
+    // Handler to remove an image input field and revoke its object URL.
     const removeImage = (index) => {
         const newImageInputs = imageInputs.filter((_, i) => i !== index);
         setImageInputs(newImageInputs);
@@ -76,9 +82,9 @@ function CreateProperty() {
         }
     };
 
+    // Handler for form submission.
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setIsSubmitting(true); // Indicate the start of form submission
         setFormError(""); // Reset any existing errors
         const formData = new FormData();
         formData.append('title', property.title);
@@ -106,6 +112,7 @@ function CreateProperty() {
 
 
         try {
+            // Submit the property data.
             await submitProperty(formData);
             setIsSubmitting(false); // Reset submission status
             Swal.fire({
@@ -127,6 +134,7 @@ function CreateProperty() {
         }
     };
 
+    // Handler for cancel action.
     const handleCancel = () => {
         navigate('/properties/2');
     }

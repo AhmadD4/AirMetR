@@ -1,6 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, Link } from 'react-router-dom'; // Import useParams and Link
+import { useParams, Link } from 'react-router-dom';
 import AmenitiesList from '../../components/AmenitiesList';
 import { Carousel, ThumbNail } from '../../components/Carousel';
 import PropertyReservation from '../Reservations/ReservationBox';

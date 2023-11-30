@@ -1,5 +1,4 @@
 ﻿import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Carousel } from '../../components/Carousel';
 import Swal from 'sweetalert2';
@@ -14,6 +13,7 @@ function DeleteProperty() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Effect to fetch property details based on the ID from URL params.
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -26,7 +26,9 @@ function DeleteProperty() {
         fetchData();
     }, [id]);
 
+    // Handler for delete action.
     const handleDelete = () => {
+        // Confirmation dialog using SweetAlert2.
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -38,6 +40,7 @@ function DeleteProperty() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
+                    // Calling the API to delete the property.
                     await deleteProperty(id);
                     Swal.fire({
                         title: "Deleted!",
@@ -53,7 +56,6 @@ function DeleteProperty() {
         
     };
 
-    //if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     if (!property) return <div>Property not found.</div>;
 

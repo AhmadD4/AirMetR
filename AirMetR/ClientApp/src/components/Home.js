@@ -5,19 +5,24 @@ import { getAllTypes, getAllProperties, getAllByTypes } from '../API/Services';
 
 
 const Home = () => {
+    // State variables to store properties, types, and any errors.
     const [properties, setProperties] = useState([]);
     const [types, setTypes] = useState([]);
     const [error, setError] = useState(null);
 
+    // Handler to fetch all properties.
     const getAllPropertiesHandler = async () => {
         try {
             const propertiesData = await getAllProperties();
+            // Update the properties state with fetched data.
             setProperties(propertiesData);
         } catch (err) {
+            // Set error state in case of an exception.
             setError(err.message);
         }
     };
 
+    // Handler to fetch properties by type.
     const getByTypes = async (id) => {
         try {
             const propertiesData = await getAllByTypes(id);
@@ -27,6 +32,7 @@ const Home = () => {
         }
     };
 
+    // useEffect hook to fetch data on component mount.
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -39,9 +45,10 @@ const Home = () => {
             }
         };
 
+        // Execute the fetchData function.
         fetchData();
 
-    }, []);
+    }, []);// Empty dependency array to ensure this runs once on mount.
 
     return (
         <div>
@@ -61,7 +68,8 @@ const Home = () => {
                                 return (
                                     <li key={type.pTypeId} className="navbar-item">
                                         <div className="text-center">
-                                            <Link className="nav-link ms-3" onClick={() => {getByTypes(type.pTypeId) }}>
+                                            {/* Link to filter properties by type */}
+                                            <Link className="nav-link ms-3" onClick={() => { getByTypes(type.pTypeId) }}>
                                                 <i className={type.pTypeIcon}></i>
                                                 <div>{type.pTypeName}</div>
                                             </Link>

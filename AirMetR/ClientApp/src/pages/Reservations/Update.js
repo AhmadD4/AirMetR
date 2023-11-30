@@ -1,6 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom'; // Import useParams
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { getReservationDetails, getUnavailableDates, putInReservation } from '../../API/ReservationApi';
 import { getPropertyDetails } from '../../API/Services';
@@ -150,6 +149,7 @@ const UpdateReservation = () => {
                         className="form-control"
                         id="startDate"
                         value={startDate}
+                        min={new Date().toISOString().split('T')[0]}
                         onChange={(e) => setStartDate(e.target.value)}
                         required />
                 </div>
@@ -161,6 +161,7 @@ const UpdateReservation = () => {
                         className="form-control"
                         id="endDate"
                         value={endDate}
+                        min={new Date().toISOString().split('T')[0]}
                         onChange={(e) => setEndDate(e.target.value)}
                         required />
                 </div>

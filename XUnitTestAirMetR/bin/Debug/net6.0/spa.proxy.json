@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "http://localhost:44433",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "/Users/ahmaddebs/Projects/AirMetR/AirMetR/ClientApp/",
+"MaxTimeoutInSeconds": "120"
+}
+}
